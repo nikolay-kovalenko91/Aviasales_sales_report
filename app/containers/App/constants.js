@@ -10,3 +10,4 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+export const PAGINATION_ITEMS_PER_PAGE = 10;
