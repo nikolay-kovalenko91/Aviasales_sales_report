@@ -18,10 +18,16 @@ const selectRowProp = {
   hideSelectColumn: true
 };
 
-export default class SelectHookTable extends React.Component {
+export default class ReportTable extends React.Component {
+  getSelectedRowKeys() {
+    //Here is your answer
+    console.log(this.refs.table)
+  }
   render() {
     return (
-      <BootstrapTable data={ this.props.data } selectRow={ selectRowProp }>
+      <div>
+    <button onClick={this.getSelectedRowKeys.bind(this)}>Get selected row keys</button>
+    <BootstrapTable data={ this.props.data } selectRow={ selectRowProp } ref='table'>
         <TableHeaderColumn dataField='time' isKey={ true } dataSort={ true }>Date</TableHeaderColumn>
         <TableHeaderColumn dataField='searches' dataSort={ true }>Searches</TableHeaderColumn>
         <TableHeaderColumn dataField='clicks' dataSort={ true }>Clicks</TableHeaderColumn>
@@ -37,10 +43,11 @@ export default class SelectHookTable extends React.Component {
         <TableHeaderColumn dataField='timeouts' dataSort={ true }>T/O %</TableHeaderColumn>
         <TableHeaderColumn dataField='duration' dataSort={ true }>Avg Resp</TableHeaderColumn>
       </BootstrapTable>
+        </div>
     );
   }
 }
 
-SelectHookTable.propTypes = {
+ReportTable.propTypes = {
   data: PropTypes.array,
 };

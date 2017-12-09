@@ -9,6 +9,8 @@ import messages from './messages';
 import { makeSelectItemsPerPage } from './selectors';
 import Toggle from 'components/Toggle';
 import ReportTable from 'components/ReportTable'
+import Pagination from 'containers/Pagination';
+import ReportChart from 'components/ReportChart'
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import { changeItemsPerPage } from './actions';
@@ -28,7 +30,7 @@ export class ReportPaginator extends React.PureComponent { // eslint-disable-lin
     this.setState({isLoading: true});
     fetch(url, {
       headers: {
-        'Authorization': 'Bearer '+ process.env.API_AUTH_TOKEN,
+        'Authorization': 'Bearer ' + process.env.API_AUTH_TOKEN,
       }
     })
       .then(response => response.json())
@@ -39,16 +41,31 @@ export class ReportPaginator extends React.PureComponent { // eslint-disable-lin
         }));
   }
 
+  onChangePage(pageOfItems) {
+    // update state with new page of items
+    //console.log(pageOfItems);
+    //this.setState({ pageOfItems: pageOfItems });
+  }
+
   render() {
-    console.log(this.state.data);
     if (this.state.message) return <h2><FormattedMessage {...messages.error}/>{this.state.message}</h2>;
     if (this.state.isLoading) return <LoadingIndicator/>;
-
     return (
       <div>
-          <ReportTable data={this.state.data.data}/>
+        <Pagination items={this.state.data.data} onChangePage={this.onChangePage} />
       </div>
     );
+
+    // return (
+    //   <div>
+    //       <ReportChart data={this.state.data.data}/>
+    //   </div>
+    // );
+    // return (
+    //   <div>
+    //       <ReportTable data={this.state.data.data}/>
+    //   </div>
+    // );
     // return (
     //   <div>
     //       <h1>
