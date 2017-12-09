@@ -1,19 +1,16 @@
 import React, { PropTypes } from 'react';
 import { range } from 'underscore'
 
-import Toggle from 'components/Toggle';
-import Input from './Input';
-import ControlsContainer from './ControlsContainer';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import Pagination from 'components/Pagination';
 
 
-export default class Pagination extends React.PureComponent {
+export default class PaginationContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { pager: {}, pageSize: 10, validation: { isPageValid: true } };
     this.onItemsPerPageToggle = this.onItemsPerPageToggle.bind(this);
     this.onGotoPage = this.onGotoPage.bind(this);
+    this.setPage = this.setPage.bind(this);
   }
 
   componentWillMount() {
@@ -126,57 +123,22 @@ export default class Pagination extends React.PureComponent {
     }
 
     return (
-      <ControlsContainer>
-        <div>
-          <Toggle
-           values={['10','20', '50', '100']}
-           onToggle={this.onItemsPerPageToggle} />
-        </div>
-        <div>
-          <FormattedMessage
-            {...messages.showingEntries}
-            values={{
-              startIndex: pager.startIndex + 1,
-              endIndex: pager.endIndex + 1,
-              totalItems: pager.totalItems
-            }}
-          />
-        </div>
-        <div style={{width: "auto"}} className="input-group">
-          <span className="input-group-addon"><FormattedMessage {...messages.gotoPage} /></span>
-          <Input
-            type="text"
-            placeholder={pager.currentPage}
-            onBlur={this.onGotoPage}
-            className={`form-control ${this.state.validation.isPageValid ? '' : 'is-invalid'}`}
-          />
-        </div>
-        <div>
-          <ul className="pagination">
-            <li className={`page-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
-              <a className="page-link" onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
-            </li>
-            {pager.pages.map((page, index) =>
-              <li key={index} className={`page-item ${pager.currentPage === page ? 'active' : ''}`}>
-                <a className="page-link" onClick={() => this.setPage(page)}>{page}</a>
-              </li>
-            )}
-            <li className={`page-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
-              <a className="page-link" onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
-            </li>
-          </ul>
-        </div>
-      </ControlsContainer>
+      <Pagination
+        onGotoPage={this.onGotoPage}
+        onItemsPerPageToggle={this.onItemsPerPageToggle}
+        setPage={this.setPage}
+        validation={this.state.validation}
+        pager={this.state.pager}/>
     );
   }
 }
 
-Pagination.propTypes = {
+PaginationContainer.propTypes = {
   items: PropTypes.array.isRequired,
   onChangePage: PropTypes.func.isRequired,
   initialPage: PropTypes.number
 };
 
-Pagination.defaultProps = {
+PaginationContainer.defaultProps = {
   initialPage: 1
 };

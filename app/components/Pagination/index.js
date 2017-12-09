@@ -62,3 +62,5 @@ Pagination.propTypes = {
   validation: PropTypes.object.isRequired,
   pager: PropTypes.object.isRequired,
 };
+
+export default Pagination;

@@ -7,11 +7,11 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.ReportPaginator.header',
-    defaultMessage: 'This is ReportPaginator component!',
+    id: 'app.components.SalesReport.header',
+    defaultMessage: 'This is SalesReport component!',
   },
   error: {
-    id: 'app.components.ReportPaginator.error',
+    id: 'app.components.SalesReport.error',
     defaultMessage: 'Something wrong happened: ',
   },
 });

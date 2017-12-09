@@ -5,10 +5,10 @@ import { shallow } from 'enzyme';
 import HomePage from '../index';
 import messages from '../messages';
 
-describe('<ReportPaginator />', () => {
+describe('<SalesReport />', () => {
   it('should render the page message', () => {
     const renderedComponent = shallow(
-      <ReportPaginator />
+      <SalesReport />
     );
     expect(renderedComponent.contains(
       <FormattedMessage {...messages.header} />
