@@ -52,21 +52,12 @@ export class ReportPaginator extends React.PureComponent { // eslint-disable-lin
     if (this.state.isLoading) return <LoadingIndicator/>;
     return (
       <div>
-        <ReportChart data={this.state.pageOfItems}/>
+        <ReportTable data={this.state.pageOfItems}/>
         <PaginationContainer items={this.state.data.data} onChangePage={this.onChangePage} />
+        <ReportChart data={this.state.pageOfItems}/>
       </div>
     );
 
-    // return (
-    //   <div>
-    //       <ReportChart data={this.state.data.data}/>
-    //   </div>
-    // );
-    // return (
-    //   <div>
-    //       <ReportTable data={this.state.data.data}/>
-    //   </div>
-    // );
     // return (
     //   <div>
     //       <h1>

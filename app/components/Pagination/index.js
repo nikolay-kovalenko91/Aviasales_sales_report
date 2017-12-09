@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 
 import Toggle from 'components/Toggle';
 import Input from './Input';
-import ControlsContainer from './ControlsContainer';
 import { FormattedMessage } from 'react-intl';
+import Wrapper from './Wrapper';
 import messages from './messages';
 
 
@@ -11,7 +11,7 @@ function Pagination(props) {
   let pager = props.pager;
 
   return (
-    <ControlsContainer>
+    <Wrapper>
       <div>
         <Toggle
          values={['10','20', '50', '100']}
@@ -51,7 +51,7 @@ function Pagination(props) {
           </li>
         </ul>
       </div>
-    </ControlsContainer>
+    </Wrapper>
   );
 }
 

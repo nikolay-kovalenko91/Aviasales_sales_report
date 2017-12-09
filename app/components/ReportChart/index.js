@@ -8,7 +8,7 @@ function ReportChart(props) {
     <AmCharts.React
       style={{
         width: "100%",
-        height: "200px"
+        height: "400px"
       }}
       options={{
         "type": "serial",

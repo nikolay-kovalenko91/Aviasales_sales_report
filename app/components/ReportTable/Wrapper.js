@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  margin: 20px auto;
-  padding: 60px;
-  width: 40px;
-  height: 40px;
-  position: relative;
+  padding: 10px;
+  width: 100%;
+  #font-size: 10pt;
 `;
 
 export default Wrapper;
