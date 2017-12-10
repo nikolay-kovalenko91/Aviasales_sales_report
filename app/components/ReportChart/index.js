@@ -23,30 +23,57 @@ function ReportChart(props) {
           "axisColor": "#FF6600",
           "axisThickness": 2,
           "axisAlpha": 1,
-          "position": "left"
+          "position": "left",
         },{
           "id":"v2",
           "axisColor": "#FCD202",
           "axisThickness": 2,
           "axisAlpha": 1,
+          "position": "left",
+          "offset": 50
+        },{
+          "id":"v3",
+          "axisColor": "#B0DE09",
+          "axisThickness": 2,
+          "axisAlpha": 1,
           "position": "right"
+        },{
+          "id":"v4",
+          "axisColor": "#0000FF",
+          "axisThickness": 2,
+          "axisAlpha": 1,
+          "position": "right",
+          "offset": 50
         }],
         "graphs": [{
           "id": "g1",
           "valueAxis": "v1",
-          "lineColor": "#FF6600",
+          "lineColor": "#0000FF",
           "bullet": "round",
           "bulletBorderThickness": 1,
           "bulletColor": "#FFFFFF",
           "bulletBorderAlpha": 1,
           "useLineColorForBulletBorder": true,
           "hideBulletsCount": 30,
-          "title": "Previous",
-          "valueField": "clicks",
+          "title": "CTR",
+          "valueField": "ctr",
           "fillAlphas": 0
         },{
           "id": "g2",
           "valueAxis": "v2",
+          "lineColor": "#FCD202",
+          "bullet": "round",
+          "bulletBorderThickness": 1,
+          "bulletColor": "#FFFFFF",
+          "bulletBorderAlpha": 1,
+          "useLineColorForBulletBorder": true,
+          "hideBulletsCount": 30,
+          "title": "Clicks",
+          "valueField": "clicks",
+          "fillAlphas": 0
+        },{
+          "id": "g3",
+          "valueAxis": "v3",
           "lineColor": "#B0DE09",
           "bullet": "round",
           "bulletBorderThickness": 1,
@@ -54,8 +81,21 @@ function ReportChart(props) {
           "bulletBorderAlpha": 1,
           "useLineColorForBulletBorder": true,
           "hideBulletsCount": 30,
-          "title": "Current",
-          "valueField": "ctr",
+          "title": "Sales",
+          "valueField": "sales",
+          "fillAlphas": 0
+        },{
+          "id": "g4",
+          "valueAxis": "v4",
+          "lineColor": "#FF6600",
+          "bullet": "round",
+          "bulletBorderThickness": 1,
+          "bulletColor": "#FFFFFF",
+          "bulletBorderAlpha": 1,
+          "useLineColorForBulletBorder": true,
+          "hideBulletsCount": 30,
+          "title": "Searches",
+          "valueField": "searches",
           "fillAlphas": 0
         }],
         "chartScrollbar": {
