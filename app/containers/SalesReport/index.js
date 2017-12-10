@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
@@ -45,7 +44,6 @@ export class SalesReport extends React.PureComponent { // eslint-disable-line re
   onChangePage(pageOfItems, currentPage) {
     // update state with new page of items
     this.setState({ pageOfItems: pageOfItems });
-    this.props.onPageNumberToggle(currentPage);
   }
 
   render() {
@@ -66,7 +64,6 @@ export class SalesReport extends React.PureComponent { // eslint-disable-line re
 // In this case, it is good idea to save current pagination params
 SalesReport.propTypes = {
   changeItemsPerPage: PropTypes.func,
-  onPageNumberToggle: PropTypes.func,
 };
 
 export function mapStateToProps() {
@@ -77,7 +74,6 @@ export function mapStateToProps() {
 export function mapDispatchToProps(dispatch) {
     return {
       changeItemsPerPage: (evt) => {dispatch(changeItemsPerPage(evt.target.value))},
-      onPageNumberToggle: (currentPage) => {dispatch(push('/?page=' + currentPage))},
       dispatch,
     };
 }
