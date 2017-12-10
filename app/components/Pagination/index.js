@@ -29,6 +29,7 @@ function Pagination(props) {
           type="text"
           placeholder={pager.currentPage}
           onBlur={props.onGotoPage}
+          onKeyPress={(evt) => {(evt.key === 'Enter' ? props.onGotoPage(evt) : null)}}
           className={`form-control ${props.validation.isPageValid ? '' : 'is-invalid'}`}
         />
       </InputWrapper>

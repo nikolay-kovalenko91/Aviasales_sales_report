@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
+import { changeItemsPerPage } from './actions';
 
 import Wrapper from './Wrapper';
 import PageSizeToggle from 'components/PageSizeToggle';
@@ -11,8 +12,6 @@ import ReportTable from 'components/ReportTable'
 import PaginationContainer from 'containers/PaginationContainer';
 import ReportChart from 'components/ReportChart'
 import LoadingIndicator from 'components/LoadingIndicator';
-
-import { changeItemsPerPage } from './actions';
 
 
 export class SalesReport extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -60,8 +59,7 @@ export class SalesReport extends React.PureComponent { // eslint-disable-line re
   }
 }
 
-// Let's imagine we have left the page and then want to return to the page back.
-// In this case, it is good idea to save current pagination params
+// Save current pagination params in order to use it in pagination component
 SalesReport.propTypes = {
   changeItemsPerPage: PropTypes.func,
 };
@@ -69,7 +67,6 @@ SalesReport.propTypes = {
 export function mapStateToProps() {
   return {}
 }
-
 
 export function mapDispatchToProps(dispatch) {
     return {

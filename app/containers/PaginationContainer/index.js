@@ -30,22 +30,21 @@ export class PaginationContainer extends React.PureComponent {
   }
 
   setPage(page) {
-    var items = this.props.items;
-    var pager = this.state.pager;
+    let items = this.props.items;
+    let pager = this.state.pager;
 
     if (page < 1 || page > pager.totalPages) {
       return;
     }
 
     // default page size is 10
-    var pageSize = this.props.itemsPerPage;
-    console.log(this.props.itemsPerPage)
+    let pageSize = this.props.itemsPerPage;
 
     // get new pager object for specified page
     pager = this.getPager(items.length, page, pageSize);
 
     // get new page of items from items array
-    var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
+    let pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
 
     // update state
     this.setState({ pager: pager });
@@ -59,9 +58,9 @@ export class PaginationContainer extends React.PureComponent {
     currentPage = currentPage || 1;
 
     // calculate total pages
-    var totalPages = Math.ceil(totalItems / pageSize);
+    let totalPages = Math.ceil(totalItems / pageSize);
 
-    var startPage, endPage;
+    let startPage, endPage;
     if (totalPages <= 10) {
       // less than 10 total pages so show all
       startPage = 1;
@@ -81,11 +80,11 @@ export class PaginationContainer extends React.PureComponent {
     }
 
     // calculate start and end item indexes
-    var startIndex = (currentPage - 1) * pageSize;
-    var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+    let startIndex = (currentPage - 1) * pageSize;
+    let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
     // create an array of pages to ng-repeat in the pager control
-    var pages = range(startPage, endPage + 1);
+    let pages = range(startPage, endPage + 1);
 
     // return object with all pager properties required by the view
     return {
@@ -102,7 +101,7 @@ export class PaginationContainer extends React.PureComponent {
   }
 
   onGotoPage(evt) {
-    var page = parseInt(evt.target.value);
+    let page = parseInt(evt.target.value);
 
     if (page <= this.state.pager.totalPages && page >= 1) {
       this.setState({ validation: { isPageValid: true } });
@@ -113,7 +112,7 @@ export class PaginationContainer extends React.PureComponent {
   };
 
   render() {
-    var pager = this.state.pager;
+    let pager = this.state.pager;
 
     if (!pager.pages || pager.pages.length <= 1) {
       // don't display pager if there is only 1 page
