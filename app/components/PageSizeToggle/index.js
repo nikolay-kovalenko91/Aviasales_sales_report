@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import { FormattedMessage } from 'react-intl';
 import Toggle from 'components/Toggle';
 import messages from './messages';
 

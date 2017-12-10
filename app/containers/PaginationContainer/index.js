@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
 import { range } from 'underscore'
+import { createSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { makeSelectItemsPerPage } from './selectors';
 
 import Pagination from 'components/Pagination';
 
 
-export default class PaginationContainer extends React.PureComponent {
+export class PaginationContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { pager: {}, pageSize: 10, validation: { isPageValid: true } };
-    this.onItemsPerPageToggle = this.onItemsPerPageToggle.bind(this);
+    this.state = { pager: {}, validation: { isPageValid: true } };
     this.onGotoPage = this.onGotoPage.bind(this);
     this.setPage = this.setPage.bind(this);
   }
@@ -22,12 +24,12 @@ export default class PaginationContainer extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     // reset page if items array has changed
-    if (this.props.items !== prevProps.items) {
+    if (this.props.items !== prevProps.items || this.props.itemsPerPage !== prevProps.itemsPerPage) {
       this.setPage(this.props.initialPage);
     }
   }
 
-  setPage(page, pageSize) {
+  setPage(page) {
     var items = this.props.items;
     var pager = this.state.pager;
 
@@ -36,7 +38,8 @@ export default class PaginationContainer extends React.PureComponent {
     }
 
     // default page size is 10
-    pageSize = pageSize || this.state.pageSize;
+    var pageSize = this.props.itemsPerPage;
+    console.log(this.props.itemsPerPage)
 
     // get new pager object for specified page
     pager = this.getPager(items.length, page, pageSize);
@@ -48,7 +51,7 @@ export default class PaginationContainer extends React.PureComponent {
     this.setState({ pager: pager });
 
     // call change page function in parent component
-    this.props.onChangePage(pageOfItems);
+    this.props.onChangePage(pageOfItems, pager.currentPage);
   }
 
   getPager(totalItems, currentPage, pageSize) {
@@ -109,11 +112,6 @@ export default class PaginationContainer extends React.PureComponent {
     }
   };
 
-  onItemsPerPageToggle(evt) {
-    this.setPage(this.props.initialPage, evt.target.value);
-    this.setState({pageSize: evt.target.value})
-  };
-
   render() {
     var pager = this.state.pager;
 
@@ -125,7 +123,6 @@ export default class PaginationContainer extends React.PureComponent {
     return (
       <Pagination
         onGotoPage={this.onGotoPage}
-        onItemsPerPageToggle={this.onItemsPerPageToggle}
         setPage={this.setPage}
         validation={this.state.validation}
         pager={this.state.pager}/>
@@ -136,9 +133,18 @@ export default class PaginationContainer extends React.PureComponent {
 PaginationContainer.propTypes = {
   items: PropTypes.array.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  itemsPerPage: PropTypes.number,
   initialPage: PropTypes.number
 };
 
 PaginationContainer.defaultProps = {
-  initialPage: 1
+  initialPage: 1,
+  itemsPerPage: 10
 };
+
+const mapStateToProps = createSelector(
+  makeSelectItemsPerPage(),
+  (itemsPerPage) => ({ itemsPerPage })
+);
+
+export default connect(mapStateToProps)(PaginationContainer);

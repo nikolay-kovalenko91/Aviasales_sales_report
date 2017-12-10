@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import Toggle from 'components/Toggle';
 import Input from './Input';
 import { FormattedMessage } from 'react-intl';
 import Wrapper from './Wrapper';
@@ -14,11 +13,6 @@ function Pagination(props) {
 
   return (
     <Wrapper>
-      <div>
-        <Toggle
-         values={['10','20', '50', '100']}
-         onToggle={props.onItemsPerPageToggle} />
-      </div>
       <div>
         <FormattedMessage
           {...messages.showingEntries}
@@ -59,7 +53,6 @@ function Pagination(props) {
 
 Pagination.propTypes = {
   onGotoPage: PropTypes.func.isRequired,
-  onItemsPerPageToggle: PropTypes.func.isRequired,
   setPage: PropTypes.func.isRequired,
   validation: PropTypes.object.isRequired,
   pager: PropTypes.object.isRequired,

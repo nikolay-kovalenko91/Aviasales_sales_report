@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 import Select from './Select';
 import ToggleOption from '../ToggleOption';
+import Wrapper from './Wrapper';
 
 function Toggle(props) {
   let content = (<option>--</option>);
@@ -23,9 +24,11 @@ function Toggle(props) {
   }
 
   return (
-    <Select defaultValue={props.value} onChange={props.onToggle}>
-      {content}
-    </Select>
+    <Wrapper>
+      <Select defaultValue={props.value} onChange={props.onToggle}>
+        {content}
+      </Select>
+    </Wrapper>
   );
 }
 

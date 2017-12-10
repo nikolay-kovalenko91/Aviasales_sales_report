@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { createSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
-import { makeSelectItemsPerPage } from './selectors';
-import Toggle from 'components/Toggle';
+
+import Wrapper from './Wrapper';
+import PageSizeToggle from 'components/PageSizeToggle';
 import ReportTable from 'components/ReportTable'
 import PaginationContainer from 'containers/PaginationContainer';
 import ReportChart from 'components/ReportChart'
@@ -16,7 +16,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { changeItemsPerPage } from './actions';
 
 
-export class ReportPaginator extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SalesReport extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {data: [], pageOfItems: [], message: '', isLoading: true}
@@ -42,42 +42,44 @@ export class ReportPaginator extends React.PureComponent { // eslint-disable-lin
         }));
   }
 
-  onChangePage(pageOfItems) {
+  onChangePage(pageOfItems, currentPage) {
     // update state with new page of items
     this.setState({ pageOfItems: pageOfItems });
+    this.props.onPageNumberToggle(currentPage);
   }
 
   render() {
     if (this.state.message) return <h2><FormattedMessage {...messages.error}/>{this.state.message}</h2>;
     if (this.state.isLoading) return <LoadingIndicator/>;
     return (
-      <div>
+      <Wrapper>
+        <PageSizeToggle onPageSizeToggle={this.props.changeItemsPerPage} />
         <ReportTable pageData={this.state.pageOfItems} totalData={this.state.data.data} />
         <PaginationContainer items={this.state.data.data} onChangePage={this.onChangePage} />
         <ReportChart data={this.state.pageOfItems} />
-      </div>
+      </Wrapper>
     );
   }
 }
 
 // Let's imagine we have left the page and then want to return to the page back.
 // In this case, it is good idea to save current pagination params
-ReportPaginator.propTypes = {
-  itemsPerPage: PropTypes.number,
-  onItemsPerPageToggle: PropTypes.func,
+SalesReport.propTypes = {
+  changeItemsPerPage: PropTypes.func,
+  onPageNumberToggle: PropTypes.func,
 };
 
-const mapStateToProps = createSelector(
-    makeSelectItemsPerPage(),
-    (itemsPerPage) => ({ itemsPerPage })
-);
+export function mapStateToProps() {
+  return {}
+}
+
 
 export function mapDispatchToProps(dispatch) {
     return {
-        onItemsPerPageToggle: (evt) => dispatch(changeItemsPerPage(evt.target.value)),
-        onPageNumberToggle: (evt) => {dispatch(push('/?page='+3))},
-        dispatch,
+      changeItemsPerPage: (evt) => {dispatch(changeItemsPerPage(evt.target.value))},
+      onPageNumberToggle: (currentPage) => {dispatch(push('/?page=' + currentPage))},
+      dispatch,
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportPaginator);
+export default connect(mapStateToProps, mapDispatchToProps)(SalesReport);
