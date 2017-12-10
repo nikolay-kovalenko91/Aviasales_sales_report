@@ -4,6 +4,8 @@ import Toggle from 'components/Toggle';
 import Input from './Input';
 import { FormattedMessage } from 'react-intl';
 import Wrapper from './Wrapper';
+import InputWrapper from './InputWrapper';
+import PageListWrapper from './PageListWrapper';
 import messages from './messages';
 
 
@@ -27,7 +29,7 @@ function Pagination(props) {
           }}
         />
       </div>
-      <div style={{width: "auto"}} className="input-group">
+      <InputWrapper className="input-group">
         <span className="input-group-addon"><FormattedMessage {...messages.gotoPage} /></span>
         <Input
           type="text"
@@ -35,8 +37,8 @@ function Pagination(props) {
           onBlur={props.onGotoPage}
           className={`form-control ${props.validation.isPageValid ? '' : 'is-invalid'}`}
         />
-      </div>
-      <div>
+      </InputWrapper>
+      <PageListWrapper>
         <ul className="pagination">
           <li className={`page-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
             <a className="page-link" onClick={() => props.setPage(pager.currentPage - 1)}>Previous</a>
@@ -50,7 +52,7 @@ function Pagination(props) {
             <a className="page-link" onClick={() => props.setPage(pager.currentPage + 1)}>Next</a>
           </li>
         </ul>
-      </div>
+      </PageListWrapper>
     </Wrapper>
   );
 }

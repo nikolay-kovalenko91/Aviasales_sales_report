@@ -1,52 +1,88 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table-2';
-import 'react-bootstrap-table-2/dist/react-bootstrap-table.min.css';
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 import Wrapper from './Wrapper';
 
 
-function onRowSelect(row, isSelected, e, rowIndex) {
-  let rowStr = '';
-  for (const prop in row) {
-    rowStr += prop + ': "' + row[prop] + '"';
-  }
-  console.log(e);
-  alert(`Selected: ${isSelected}, rowIndex: ${rowIndex}, content: ${rowStr}`);
-}
+function ReportTable(props) {
+  let columns = [{
+    Header: 'Date',
+    accessor: 'time',
+    minWidth: 120
+  },{
+    Header: 'Searches',
+    accessor: 'searches',
+    minWidth: 80
+  },{
+    Header: 'Clicks',
+    accessor: 'clicks',
+    minWidth: 65
+  },{
+    Header: 'Unq. Clicks',
+    accessor: 'unique_clicks',
+    minWidth: 100
+  },{
+    Header: 'CTR',
+    accessor: 'ctr',
+    minWidth: 50
+  },{
+    Header: 'Bookings',
+    accessor: 'bookings',
+    minWidth: 85
+  },{
+    Header: 'Sales',
+    accessor: 'sales',
+    minWidth: 55
+  },{
+    Header: 'BTR',
+    accessor: 'btr',
+    minWidth: 55
+  },{
+    Header: 'STR',
+    accessor: 'str',
+    minWidth: 55
+  },{
+    Header: 'Success %',
+    accessor: 'success',
+    minWidth: 94
+  },{
+    Header: 'Errors %',
+    accessor: 'errors',
+    minWidth: 77
+  },{
+    Header: 'Zeros %',
+    accessor: 'zeros',
+    minWidth: 76
+  },{
+    Header: 'T/O %',
+    accessor: 'timeouts',
+    minWidth: 70
+  },{
+    Header: 'Avg Resp',
+    accessor: 'duration',
+    minWidth: 80
+  }];
 
-const selectRowProp = {
-  mode: 'radio',
-  clickToSelect: true,
-  onSelect: onRowSelect,
-  hideSelectColumn: true
-};
-
-export default class ReportTable extends React.Component {
-  render() {
-    return (
-      <Wrapper>
-        <BootstrapTable data={ this.props.data } selectRow={ selectRowProp } version='4'>
-            <TableHeaderColumn dataField='time' isKey={ true } dataSort={ true } width='11%'>Date</TableHeaderColumn>
-            <TableHeaderColumn dataField='searches' dataSort={ true } width='7%'>Searches</TableHeaderColumn>
-            <TableHeaderColumn dataField='clicks' dataSort={ true } width='5.5%'>Clicks</TableHeaderColumn>
-            <TableHeaderColumn dataField='unique_clicks' dataSort={ true } width='8%'>Unq. Clicks</TableHeaderColumn>
-            <TableHeaderColumn dataField='ctr' dataSort={ true } width='5%'>CTR</TableHeaderColumn>
-            <TableHeaderColumn dataField='bookings' dataSort={ true } width='7%'>Bookings</TableHeaderColumn>
-            <TableHeaderColumn dataField='sales' dataSort={ true } width='6%'>Sales</TableHeaderColumn>
-            <TableHeaderColumn dataField='btr' dataSort={ true } width='5.5%'>BTR</TableHeaderColumn>
-            <TableHeaderColumn dataField='str' dataSort={ true } width='5%'>STR</TableHeaderColumn>
-            <TableHeaderColumn dataField='success' dataSort={ true } width='7.5%'>Success %</TableHeaderColumn>
-            <TableHeaderColumn dataField='errors' dataSort={ true } width='7%'>Errors %</TableHeaderColumn>
-            <TableHeaderColumn dataField='zeros' dataSort={ true } width='7%'>Zeros %</TableHeaderColumn>
-            <TableHeaderColumn dataField='timeouts' dataSort={ true } width='6%'>T/O %</TableHeaderColumn>
-            <TableHeaderColumn dataField='duration' dataSort={ true } width='7%'>Avg Resp</TableHeaderColumn>
-          </BootstrapTable>
-        </Wrapper>
-    );
-  }
+  return (
+    <Wrapper>
+      <ReactTable
+        data={props.data}
+        showPagination={false}
+        defaultPageSize="10"
+        pageSize={props.data.length}
+        columns={columns}
+        style={{
+          maxHeight: "410px" // This will force the table body to overflow and scroll, since there is not enough room
+        }}
+      />
+    </Wrapper>
+  );
 }
 
 ReportTable.propTypes = {
   data: PropTypes.array,
 };
+
+export default ReportTable;
