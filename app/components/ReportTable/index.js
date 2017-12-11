@@ -11,7 +11,7 @@ import SpanTotal from './SpanTotal';
 function calcutateTotal(key, source) {
   let valuesList = map(source, (obj) => obj[key]);
   let total = reduce(valuesList, (memo, num) => memo + parseFloat(num), 0);
-  // Round total
+  // Rounds total
   return Math.ceil((total)*100)/100;
 }
 
