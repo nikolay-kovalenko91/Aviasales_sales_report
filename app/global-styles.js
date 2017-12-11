@@ -2,6 +2,11 @@ import { injectGlobal } from 'styled-components';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+  * {
+    padding: 0;
+    margin: 0;
+  }
+    
   html,
   body {
     height: 100%;
@@ -26,5 +31,9 @@ injectGlobal`
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
+  }
+  
+  a { 
+    cursor: pointer; 
   }
 `;
