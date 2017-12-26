@@ -6,7 +6,7 @@ import { makeSelectItemsPerPage } from './selectors';
 
 import Pagination from 'components/Pagination';
 
-
+// уже писал про PureComponent, осторожнее с ним
 export class PaginationContainer extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -47,7 +47,7 @@ export class PaginationContainer extends React.PureComponent {
     let pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
 
     // update state
-    this.setState({ pager: pager });
+    this.setState({ pager });
 
     // call change page function in parent component
     this.props.onChangePage(pageOfItems, pager.currentPage);
@@ -112,6 +112,7 @@ export class PaginationContainer extends React.PureComponent {
   };
 
   render() {
+    //уже где-то писал, лучше объявляй константы ранее
     let pager = this.state.pager;
 
     if (!pager.pages || pager.pages.length <= 1) {

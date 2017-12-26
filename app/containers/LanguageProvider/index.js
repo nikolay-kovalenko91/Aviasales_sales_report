@@ -13,12 +13,29 @@ import { createSelector } from 'reselect';
 import { IntlProvider } from 'react-intl';
 
 import { makeSelectLocale } from './selectors';
-
+/**
+ * я бы не рекомендовал использвать здесь PureComponent,
+ * ты передаешь children в props, имей в виду, что Pure компонент будет его проверять на наличие изменений
+ * затратная операция, оцени в ?react_perf
+ * старайся родительским компонентам не давать PureComponent, это прям очень рискованый ход,
+ * родительский PureComponent может непредсказуемо себя вести, особенно с react-router
+ * будь осторожен
+ */
 export class LanguageProvider extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    /**
+     * старайся объявлять переменные выше
+     */
+    const {
+      locale, messages,
+      children
+    } = this.props;
     return (
-      <IntlProvider locale={this.props.locale} key={this.props.locale} messages={this.props.messages[this.props.locale]}>
-        {React.Children.only(this.props.children)}
+      <IntlProvider
+        locale={locale}
+        key={locale}
+        messages={messages[locale]}>
+        {React.Children.only(children)}
       </IntlProvider>
     );
   }
@@ -30,7 +47,7 @@ LanguageProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-
+// я бы не рекомендовал использовать createSelector здесь, лучше всё хранить в selectors.js
 const mapStateToProps = createSelector(
   makeSelectLocale(),
   (locale) => ({ locale })

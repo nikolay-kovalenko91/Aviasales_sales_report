@@ -17,8 +17,10 @@ function Toggle(props) {
   // If we have items, render them
   if (props.values) {
     content = props.values.map((value) => (
-      <ToggleOption key={value} value={value}
-                    message={(typeof(props.messages) !== 'undefined') ? props.messages[value] : null}
+      <ToggleOption
+        key={value}
+        value={value}
+        message={(typeof(props.messages) !== 'undefined') ? props.messages[value] : null}
       />
     ));
   }
